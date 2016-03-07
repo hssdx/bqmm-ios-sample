@@ -1,6 +1,6 @@
 # BQMM
 
-表情mm SDK是上海似颜绘科技有限公司提供的表情商店SDK, 开发者可以利用此SDK集成丰富的表情。
+表情mm SDK是上海似颜绘科技有限公司提供的表情商店SDK, 开发者可以利用此SDK集成丰富的表情。http://biaoqingmm.com/
 
 ## Usage
 
