@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum
+{
+    EmojiTypeInvalid = 0,
+    EmojiTypeSmall,
+    EmojiTypeBig
+} EmojiType;
+
 @interface MMTextParser : NSObject
 
 /**
@@ -17,7 +24,7 @@
 *  @param completionHandler 完成的回调，包含MMEmoji,text对象的集合或者error对象
 */
 + (void)parseMMText:(NSString *)text
-  completionHandler:(void(^)(NSArray *textImgArray, NSError *error))completionHandler;
+  completionHandler:(void(^)(NSArray *textImgArray))completionHandler;
 
 /**
  *  从text中解析本地已下载的Emoji
@@ -36,5 +43,14 @@
  *  @return         符合emojiCode的格式result数组
  */
 + (NSArray<NSTextCheckingResult *> *)findEmojicodesResultFromMMText:(NSString *)mmText;
+
+/**
+ *  根据emojiCode获取是大表情还是小表情
+ *
+ *  @param emojiCode emojiCode
+ *
+ *  @return EmojiType
+ */
++ (EmojiType)emojiTypeWithEmojiCode:(NSString*)emojiCode;
 
 @end

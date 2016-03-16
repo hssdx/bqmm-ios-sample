@@ -9,6 +9,7 @@
 #import "MMTextView.h"
 #import <BQMM/BQMM.h>
 #import "MMTextParser+ExtData.h"
+#import "MMTextAttachment.h"
 
 @interface MMTextView ()
 
@@ -22,32 +23,46 @@
 
 #pragma mark - setter/getter
 
-- (void)setMmFont:(UIFont *)mmFont
-{
+- (void)setMmFont:(UIFont *)mmFont {
     _mmFont = mmFont;
     [self setFont:mmFont];
 }
 
-- (void)setMmTextColor:(UIColor *)mmTextColor
-{
+- (void)setMmTextColor:(UIColor *)mmTextColor {
     _mmTextColor = mmTextColor;
     [self setTextColor:mmTextColor];
 }
 
-- (void)setPlaceholderTextWithData:(NSArray*)extData
-{
+- (void)setPlaceholderTextWithData:(NSArray*)extData {
     NSMutableAttributedString *mAStr = [[NSMutableAttributedString alloc] init];
     for (NSArray *obj in extData) {
         NSString *str = obj[0];
-        BOOL isEmoji = [obj[1] integerValue] == 0 ? NO : YES;
-        
-        if (isEmoji) {
-            SMTextAttachment *attachemnt = [[SMTextAttachment alloc] init];
-            attachemnt.emoji = [MMTextParser placeholderEmoji];
-            [mAStr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachemnt]];
-        }
-        else {
-            [mAStr appendAttributedString:[[NSAttributedString alloc] initWithString:str]];
+        EmojiType type = [obj[1] intValue];
+        switch (type) {
+            case EmojiTypeInvalid:
+            {
+                [mAStr appendAttributedString:[[NSAttributedString alloc] initWithString:str]];
+            }
+                break;
+                
+            case EmojiTypeSmall:
+            {
+                NSTextAttachment *placeholderAttachment = [[NSTextAttachment alloc] init];
+                placeholderAttachment.bounds = CGRectMake(0, 0, 20, 20);//固定20X20
+                [mAStr appendAttributedString:[NSAttributedString attributedStringWithAttachment:placeholderAttachment]];
+            }
+                break;
+                
+            case EmojiTypeBig:
+            {
+                NSTextAttachment *placeholderAttachment = [[NSTextAttachment alloc] init];
+                placeholderAttachment.bounds = CGRectMake(0, 0, 60, 60);//固定60X60
+                [mAStr appendAttributedString:[NSAttributedString attributedStringWithAttachment:placeholderAttachment]];
+            }
+                break;
+                
+            default:
+                break;
         }
     }
     if (self.mmFont) {
@@ -59,21 +74,21 @@
     self.attributedText = mAStr;
 }
 
-- (void)setMmTextData:(NSArray *)extData
-{
+- (void)setMmTextData:(NSArray *)extData {
     [self setMmTextData:extData completionHandler:nil];
 }
 
-- (void)setMmTextData:(NSArray*)extData completionHandler:(void(^)(void))completionHandler
-{
+- (void)setMmTextData:(NSArray*)extData completionHandler:(void(^)(void))completionHandler {
     [self setPlaceholderTextWithData:extData];
+    [self updateAttributeTextWithData:extData completionHandler:completionHandler];
+    
     [self clearImageViewsCover];
     [self.attributedText enumerateAttribute:NSAttachmentAttributeName
                                     inRange:NSMakeRange(0, [self.attributedText length])
                                     options:0
                                  usingBlock:^(id value, NSRange range, BOOL * stop) {
-                                     if ([value isKindOfClass:[SMTextAttachment class]]) {
-                                         SMTextAttachment *attachment = (SMTextAttachment *)value;
+                                     if ([value isKindOfClass:[MMTextAttachment class]]) {
+                                         MMTextAttachment *attachment = (MMTextAttachment *)value;
                                          UIImage *emojiImg = attachment.emoji.emojiImage;
                                          if ([emojiImg.images count] > 1) {
                                              [self.attachmentRanges addObject:[NSValue valueWithRange:range]];
@@ -83,11 +98,9 @@
                                          }
                                      }
                                  }];
-    [self updateAttributeTextWithData:extData completionHandler:completionHandler];
 }
 
-- (void)updateAttributeTextWithData:(NSArray*)extData completionHandler:(void(^)(void))completionHandler
-{
+- (void)updateAttributeTextWithData:(NSArray*)extData completionHandler:(void(^)(void))completionHandler {
     NSMutableArray *codes = [NSMutableArray array];
     __block NSMutableArray *textImgArray = [NSMutableArray array];
     for (NSArray *obj in extData) {
@@ -102,7 +115,7 @@
     }
     
     //
-    [[MMEmotionCentre defaultCentre] fetchEmojisByType:MMFetchTypeSmall codes:codes completionHandler:^(NSArray *emojis, NSError *error) {
+    [[MMEmotionCentre defaultCentre] fetchEmojisByType:MMFetchTypeAll codes:codes completionHandler:^(NSArray *emojis) {
         NSMutableAttributedString *mAStr = [[NSMutableAttributedString alloc] init];
         for (MMEmoji *emoji in emojis) {
             NSInteger objIndex = [textImgArray indexOfObject:emoji.emojiCode];
@@ -113,14 +126,13 @@
         }
         for (id obj in textImgArray) {
             if ([obj isKindOfClass:[MMEmoji class]]) {
-                SMTextAttachment *attachemnt = [[SMTextAttachment alloc] init];
-                attachemnt.emoji = obj;
-                if ([attachemnt.image.images count] > 1) {
-                    attachemnt.image = [attachemnt placeHolderImage];
+                MMTextAttachment *attachment = [[MMTextAttachment alloc] init];
+                attachment.emoji = obj;
+                if ([attachment.image.images count] > 1) {
+                    attachment.image = [attachment placeHolderImage];
                 }
-                [mAStr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachemnt]];
-            }
-            else {
+                [mAStr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+            } else {
                 [mAStr appendAttributedString:[[NSAttributedString alloc] initWithString:obj]];
             }
         }
@@ -177,7 +189,7 @@
     NSInteger attachmentCount = [self.attachments count];
     for (NSInteger i = 0; i < attachmentCount; i++) {
         NSRange range = [self.attachmentRanges[i] rangeValue];
-        SMTextAttachment *attachment = self.attachments[i];
+        MMTextAttachment *attachment = self.attachments[i];
         UIImageView *imgView = self.imageViews[i];
         
         NSRange glyphRange = [self.layoutManager glyphRangeForCharacterRange:range actualCharacterRange:nil];
@@ -198,6 +210,9 @@
     [self layoutAttachments];
 }
 
+- (void)copy:(id)sender {
+    [UIPasteboard generalPasteboard].string = [self mmTextWithRange:self.selectedRange];
+}
 
 
 @end

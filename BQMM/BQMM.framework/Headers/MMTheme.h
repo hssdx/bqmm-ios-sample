@@ -11,6 +11,27 @@
 @interface MMTheme : NSObject
 
 /**
+ *  表情mm键盘背景色
+ */
+@property (nonatomic, strong) UIColor  *groupViewBgColor;
+
+/**
+ *  表情mm键盘表情包背景色
+ */
+@property (nonatomic, strong) UIColor  *inputToolViewBgColor;
+
+/**
+ *  表情mm键盘表情包背景色
+ */
+@property (nonatomic, strong) UIColor  *packageBgColor;
+
+/**
+ *  表情mm键盘表情包选中状态背景色
+ */
+@property (nonatomic, strong) UIColor  *packageSelectedBgColor;
+
+
+/**
  *  表情mm键盘底部发送按钮的背景色
  */
 @property (nonatomic, strong) UIColor  *sendBtnBgColor;
@@ -71,6 +92,26 @@
 @property (nonatomic, strong) UIColor  *shopPackageSubTitleColor;
 
 /**
+ *  在已下载表情界面，移除按钮背景色
+ */
+@property (nonatomic, strong) UIColor  *removeBtnBgColor;
+
+/**
+ *  在已下载表情界面，移除按钮字体
+ */
+@property (nonatomic, strong) UIFont  *removeBtnTitleFont;
+
+/**
+ *  在已下载表情界面，移除按钮字颜色
+ */
+@property (nonatomic, strong) UIColor  *removeBtnTitleColor;
+
+/**
+ *  在已下载表情界面，移除按钮边框颜色
+ */
+@property (nonatomic, strong) UIColor  *removeBtnBorderColor;
+
+/**
  *  表情包详情页标题文字字体
  */
 @property (nonatomic, strong) UIFont   *detailPackageTitleFont;
@@ -113,8 +154,58 @@
 /**
  *  表情包列表"已下载"按钮文字颜色
  */
-@property (nonatomic, strong) UIColor  *downloadedTilteColor;
+@property (nonatomic, strong) UIColor  *downloadedTitleColor;
 
+/**
+ *  表情包列表"已下载"按钮背景色
+ */
+@property (nonatomic, strong) UIColor  *downloadedBgColor;
+
+/**
+ *  表情包列表"已下载"按钮边框颜色背景色
+ */
+@property (nonatomic, strong) UIColor  *downloadedBorderColor;
+
+/**
+ *  表情包列表下载控件边框颜色
+ */
+@property (nonatomic, strong) UIColor  *downloadBorderColor;
+
+/**
+ *  表情包列表下载控件背景色
+ */
+@property (nonatomic, strong) UIColor  *downloadBgColor;
+
+/**
+ *  表情包列表下载控件下载进度条下载中填充色
+ */
+@property (nonatomic, strong) UIColor  *downloadingColor;
+
+/**
+ *  表情包列表下载控件下载中文字颜色
+ */
+@property (nonatomic, strong) UIColor  *downloadingTextColor;
+
+/**
+ *  直推位下载控件文字颜色
+ */
+@property (nonatomic, strong) UIColor  *preloadDownloadedTitleColor;
+/**
+ *  直推位下载控件字体
+ */
+@property (nonatomic, strong) UIFont   *preloadDownloadTitleFont;
+/**
+ *  直推位介绍label文字颜色
+ */
+@property (nonatomic, strong) UIColor  *preloadIntroduceTitleColor;
+/**
+ *  直推位介绍label字体
+ */
+@property (nonatomic, strong) UIFont   *preloadIntroduceTitleFont;
+/**
+ *  直推位蒙板颜色
+ */
+@property (nonatomic,strong) UIColor *preloadMaskViewColor;
 /**
  *  内测版暂未开放
  */
@@ -152,6 +243,28 @@
  *  键盘内错误提示重试按钮文字颜色
  */
 @property (nonatomic, strong) UIColor  *retryBtnColor;
+
+/**
+ *  键盘内错误提示重试按钮背景色
+ */
+@property (nonatomic, strong) UIColor  *retryBtnBgColor;
+
+/**
+ *  键盘内错误提示重试按钮边框颜色
+ */
+@property (nonatomic, strong) UIColor  *retryBtnBorderColor;
+
+
+/**
+ *  键盘商店按钮背景色
+ */
+@property (nonatomic, strong) UIColor  *shopBtnBgColor;
+
+/**
+ *  键盘商店按钮图标颜色
+ */
+@property (nonatomic, strong) UIColor  *shopBtnIconColor;
+
 
 /**
  *  表情预览页面错误提示文字字体

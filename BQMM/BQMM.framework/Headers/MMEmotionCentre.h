@@ -16,8 +16,15 @@
 typedef enum
 {
     MMFetchTypeSmall    = 1 << 0,
-    MMFetchTypeBig      = 1 << 1
+    MMFetchTypeBig      = 1 << 1,
+    MMFetchTypeAll      = 1 << 2
 } MMFetchType;
+
+typedef enum
+{
+    MMSDKModeIM         = 1 << 0,
+    MMSDKModeComment    = 1 << 1,
+} MMSDKMode;
 
 @protocol MMEmotionCentreDelegate <NSObject>
 
@@ -57,6 +64,11 @@ typedef enum
  *  表情中心的代理， 表情mm SDK数据的主要输出口
  */
 @property (nonatomic, weak) id<MMEmotionCentreDelegate> delegate;
+
+/**
+ *  SDK模式 默认IM
+ */
+@property (nonatomic) MMSDKMode sdkMode;
 
 /**
  *  是否支持图文混排, 默认为YES
@@ -130,7 +142,7 @@ typedef enum
 
 /**
  *  表情的详细的界面视图
- * 
+ *
  *  @param emojiCode 表情的唯一标识
  *
  *  @return 表情的细节试图
@@ -146,7 +158,7 @@ typedef enum
  */
 - (void)fetchEmojisByType:(MMFetchType)fetchType
                     codes:(NSArray *)emojiCodes
-        completionHandler:(void (^)(NSArray *emojis, NSError *error))completionHandler;
+        completionHandler:(void (^)(NSArray *emojis))completionHandler;
 
 
 /**

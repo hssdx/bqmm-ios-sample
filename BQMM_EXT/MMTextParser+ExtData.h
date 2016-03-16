@@ -30,13 +30,6 @@
 + (NSArray*)extDataWithEmojiCode:(NSString*)emojiCode;
 
 /**
- *  提供占位图的小表情
- *
- *  @return 表情对象
- */
-+ (MMEmoji*)placeholderEmoji;
-
-/**
  *   将单个extData转换成text
  *
  *  @param extData extData二维数组
@@ -57,5 +50,9 @@
 + (CGSize)sizeForMMTextWithExtData:(NSArray*)extData
                               font:(UIFont *)font
                   maximumTextWidth:(CGFloat)maximumTextWidth;
+
++ (CGSize)sizeForTextWithText:(NSString *)text
+                         font:(UIFont *)font
+             maximumTextWidth:(CGFloat)maximumTextWidth;
 
 @end
