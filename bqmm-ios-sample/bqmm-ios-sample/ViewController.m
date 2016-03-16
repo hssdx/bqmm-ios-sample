@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "DemoModelData.h"
-#import "BQMM.h"
+#import <BQMM/BQMM.h>
 #import "MMTextParser+ExtData.h"
 
 static NSString * const kPackageId = @"packageId";
