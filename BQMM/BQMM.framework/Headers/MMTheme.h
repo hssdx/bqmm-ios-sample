@@ -187,33 +187,25 @@
 @property (nonatomic, strong) UIColor  *downloadingTextColor;
 
 /**
- *  直推位下载控件文字颜色
+ *  默认大表情下载控件文字颜色
  */
 @property (nonatomic, strong) UIColor  *preloadDownloadedTitleColor;
 /**
- *  直推位下载控件字体
+ *  默认大表情下载控件字体
  */
 @property (nonatomic, strong) UIFont   *preloadDownloadTitleFont;
 /**
- *  直推位介绍label文字颜色
+ *  默认大表情介绍label文字颜色
  */
 @property (nonatomic, strong) UIColor  *preloadIntroduceTitleColor;
 /**
- *  直推位介绍label字体
+ *  默认大表情介绍label字体
  */
 @property (nonatomic, strong) UIFont   *preloadIntroduceTitleFont;
 /**
- *  直推位蒙板颜色
+ *  默认大表情蒙板颜色
  */
 @property (nonatomic,strong) UIColor *preloadMaskViewColor;
-/**
- *  内测版暂未开放
- */
-@property (nonatomic, strong) UIFont   *artCentreTitleFont;
-@property (nonatomic, strong) UIColor  *artCentreTitleColor;
-@property (nonatomic, strong) UIFont   *artistTitleFont;
-@property (nonatomic, strong) UIColor  *artistTitleColor;
-
 /**
  *   表情包详情页,底部版权文字字体
  */

@@ -30,6 +30,11 @@ static MMEmoji *s_placeholderEmoji = nil;
 }
 
 + (NSArray*)extDataWithEmojiCode:(NSString*)emojiCode {
+    //---兼容IM老版本安卓消息格式 如不需要可删除---
+    if ([MMEmotionCentre defaultCentre].sdkMode == MMSDKModeIM) {
+        return @[@[emojiCode, [NSString stringWithFormat:@"%d", EmojiTypeSmall]]];
+    }
+    //---end---
     return @[@[emojiCode, [NSString stringWithFormat:@"%d", [MMTextParser emojiTypeWithEmojiCode:emojiCode]]]];
 }
 
