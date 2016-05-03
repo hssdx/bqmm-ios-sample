@@ -288,4 +288,14 @@
  */
 @property (nonatomic, strong) UIColor  *reloadBtnColor;
 
+/**
+ *  我的表情页面排序按钮的颜色
+ */
+@property (nonatomic, strong) UIColor *orderBtnColor;
+
+/**
+ *  我的表情页面完成状态按钮的颜色
+ */
+@property (nonatomic, strong) UIColor *finishBtnColor;
+
 @end

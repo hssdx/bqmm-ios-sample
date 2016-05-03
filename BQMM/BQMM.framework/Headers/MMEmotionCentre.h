@@ -76,11 +76,6 @@ typedef enum
 @property (nonatomic) BOOL supportedMixedTextImage;
 
 /**
- * 计数表情包
- */
-@property (nonatomic) NSInteger count;
-
-/**
  *  表情中心的单例方法
  *
  *  @return 表情中心的单例
