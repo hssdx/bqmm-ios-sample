@@ -8,7 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMTextView : UITextView
+@protocol MMTextViewDelegate;
+
+@interface MMTextView : UITextView<UIGestureRecognizerDelegate>
+
+@property (nonatomic, weak) id <MMTextViewDelegate> clickActionDelegate;
+
+/*!
+ 是否关闭菜单
+ 
+ @discussion 默认值为NO。
+ */
+@property(nonatomic, assign) BOOL disableActionMenu;
 
 /**
  *  字体
@@ -40,5 +51,36 @@
  *  @param completionHandler 完成显示表情后的回调
  */
 - (void)setMmTextData:(NSArray*)extData completionHandler:(void(^)(void))completionHandler;
+
+- (void)setURLAttributes;
+
+@end
+
+@protocol MMTextViewDelegate <NSObject>
+@optional
+
+/*!
+ 点击URL的回调
+ 
+ @param label 当前Label
+ @param url   点击的URL
+ */
+- (void)mmTextView:(MMTextView *)textView didSelectLinkWithURL:(NSURL *)url;
+
+/*!
+ 点击电话号码的回调
+ 
+ @param label       当前Label
+ @param phoneNumber 点击的URL
+ */
+- (void)mmTextView:(MMTextView *)textView didSelectLinkWithPhoneNumber:(NSString *)phoneNumber;
+
+/*!
+ 点击Label的回调
+ 
+ @param label   当前Label
+ @param content 点击的内容
+ */
+- (void)mmTextView:(MMTextView *)textView didTapTextView:(NSString *)content;
 
 @end
