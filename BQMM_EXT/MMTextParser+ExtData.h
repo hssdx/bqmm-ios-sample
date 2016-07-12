@@ -23,11 +23,11 @@
 /**
  *  convert a single emojiCode to extData
  *
- *  @param emojiCode         the emoji code
+ *  @param emoji         emoji
  *
  *  @return extData          a two dimentional array e.g. @[@[@"emojiCode", @1], @[@"text", @0]]
  */
-+ (NSArray*)extDataWithEmojiCode:(NSString*)emojiCode;
++ (NSArray*)extDataWithEmoji:(MMEmoji *)emoji;
 
 /**
  *  convert extData to mmtext

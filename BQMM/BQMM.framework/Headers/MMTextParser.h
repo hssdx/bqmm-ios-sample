@@ -47,7 +47,7 @@ typedef enum
 /**
  *  check the emojiCode to find out emoji type
  *
- *  @param emojiCode    emojiCode
+ *  @param emojiCode    emojiCode (available for local emojis)
  *
  *  @return             EmojiType
  */

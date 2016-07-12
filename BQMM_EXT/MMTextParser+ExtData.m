@@ -12,13 +12,21 @@ static MMEmoji *s_placeholderEmoji = nil;
 
 @implementation MMTextParser (ExtData)
 
++ (EmojiType)emojiTypeWithEmoji:(MMEmoji *)emoji {
+    if (emoji.isEmoji) {
+        return EmojiTypeSmall;
+    } else {
+        return EmojiTypeBig;
+    }
+}
+
 + (NSArray*)extDataWithTextImageArray:(NSArray*)textImageArray {
     NSMutableArray *ret = [NSMutableArray array];
     
     for (id obj in textImageArray) {
         if ([obj isKindOfClass:[MMEmoji class]]) {
             MMEmoji *emoji = (MMEmoji*)obj;
-            [ret addObject:@[emoji.emojiCode, [NSString stringWithFormat:@"%d", [MMTextParser emojiTypeWithEmojiCode:emoji.emojiCode]]]];
+            [ret addObject:@[emoji.emojiCode, [NSString stringWithFormat:@"%d", [MMTextParser emojiTypeWithEmoji:emoji]]]];
         } else if ([obj isKindOfClass:[NSString class]]) {
             [ret addObject:@[obj, [NSString stringWithFormat:@"%d", EmojiTypeInvalid]]];
         } else {
@@ -29,9 +37,8 @@ static MMEmoji *s_placeholderEmoji = nil;
     return ret;
 }
 
-+ (NSArray*)extDataWithEmojiCode:(NSString*)emojiCode {
-    
-    return @[@[emojiCode, [NSString stringWithFormat:@"%d", [MMTextParser emojiTypeWithEmojiCode:emojiCode]]]];
++ (NSArray*)extDataWithEmoji:(MMEmoji *)emoji {
+    return @[@[emoji.emojiCode, [NSString stringWithFormat:@"%d", [MMTextParser emojiTypeWithEmoji:emoji]]]];
 }
 
 + (NSString*)stringWithExtData:(NSArray*)extData {
