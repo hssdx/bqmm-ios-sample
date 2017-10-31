@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "BQMM"
-  s.version          = "1.7.13"
+  s.version          = "1.7.16"
   s.summary          = "BQMM SDK"
   s.description      = <<-DESC
                           The developer can use this SDK to integrate more and more emoji, such as some static image emoji, or animated emoji
