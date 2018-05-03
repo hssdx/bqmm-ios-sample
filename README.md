@@ -8,7 +8,7 @@ To run the example project, clone the repo, and run `pod install` from the bqmm-
 
 ## Requirements
 
-ios 7.0
+ios 8.0
 
 ## Installation
 
