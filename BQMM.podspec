@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
                           The developer can use this SDK to integrate more and more emoji, such as some static image emoji, or animated emoji
                        DESC
 
-  s.homepage         = "http://biaoqingsdk.com"
+  s.homepage         = "https://biaoqingmm.com"
   s.license          = 'MIT'
   s.author           = { "harvey" => "dhanf@163.com" }
   s.source           = { :git => "https://github.com/siyanhui/bqmm-ios-sample.git", :tag => s.version.to_s }
